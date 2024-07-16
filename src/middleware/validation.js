@@ -12,15 +12,24 @@ const isData = async (req, res, next) => {
     res.status(500).json({ message: error.message, error: error });
   }
 };
-// check if string is lowercase and makes cover
-const isLowerCase = async (req, res, next) => {
-  try {
-    //code here
-  } catch (error) {
-    res.status(500).json({ message: error.message, error: error });
-  }
+
+// check if string is lowercase and makes cover 
+const isLowerCase = async ( req, res, next) => {
+    try{
+//code here
+req.body.username = req.body.username.toLowerCase();
+
+    // const lowerCase = new String (reg.body.username)   ;
+    // if (lowerCase !== req.body.username.toLowerCase()){
+    //     req.body.username= req.body.username.toLowerCase();
+    // }
+
+    next();
+    }catch (error) {
+        res.status(500).json ({message: error.message, error:error})
+}
 };
-// check if email is valid using regex
+
 const isValidEmail = async (req, res, next) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   try {
@@ -35,17 +44,21 @@ const isValidEmail = async (req, res, next) => {
   }
 };
 
-const isPassword = async (req, res, next) => {
+
+   
   try {
-    const { password } = req.body;
-
-    if (!password) {
-      return res.status(400).json({ message: "Password is required" });
+     const checkEmail = newRegExp(/^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,6}$/);
+    
+    if (!checkEmail.test(req.body.email)) {
+     res.status(422).json({ message: "Invalid email" });
+      return; 
     }
+    // Check if the email already exists in the database
+    // const existingUser = await User.findOne({ email });
+    // if (existingUser) {
+    //   return res.status(400).json({ message: "Email already exists" });
+    // }
 
-    if (!password.test(password)) {
-      return res.status(400).json({ message: "Invalid password format" });
-    }
 
     next();
   } catch (error) {
