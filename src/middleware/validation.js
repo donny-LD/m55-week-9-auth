@@ -45,30 +45,10 @@ const isValidEmail = async (req, res, next) => {
 };
 
 
-   
-  try {
-     const checkEmail = newRegExp(/^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,6}$/);
-    
-    if (!checkEmail.test(req.body.email)) {
-     res.status(422).json({ message: "Invalid email" });
-      return; 
-    }
-    // Check if the email already exists in the database
-    // const existingUser = await User.findOne({ email });
-    // if (existingUser) {
-    //   return res.status(400).json({ message: "Email already exists" });
-    // }
-
-
-    next();
-  } catch (error) {
-    res.status(500).json({ message: error.message, error });
-  }
-};
+  
 
 module.exports = {
   isData,
   isLowerCase,
   isValidEmail,
-  isPassword,
 };
