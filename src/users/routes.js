@@ -10,3 +10,4 @@ userRouter.post("/login", login);
 userRouter.get("/getAllUser", getAllUsers);
 
 module.exports = userRouter
+

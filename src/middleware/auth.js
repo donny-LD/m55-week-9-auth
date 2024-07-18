@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const user = require ("./")
 
 
 
@@ -17,6 +18,18 @@ const hashPass = async (req, res, next) =>{
     }
 };
 
+const comparePass = async (req, res, next) => {
+    try {
+
+
+        const user = await UserActivation.findOne ({where: {username:req.body.username}});
+        req.user = user
+        next()
+    }catch(error) {
+         res.status(500).json({ message: error.message, error });
+    }
+}
 module.exports ={
-    hashPass
+    hashPass,
+    comparePass,
 }

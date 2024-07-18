@@ -1,26 +1,25 @@
-// const { DataTypes } = require("sequelize");
+const { DataTypes, UniqueConstraintError } = require("sequelize");
+const sequelize = require ("../db/connection");
 
-// const sequelize = require("../db/connection");
-// // const { toDefaultValue } = require("sequelize/lib/utils");
+const User = sequelize.define(
+    "user",{
+        username:{
+            type: DataTypes.STRING,
+            Unique: true,
+            allowNull: false,
+        },
 
-// const Book = sequelize.define(
-//   "Book",
-//   {
-//     title: {
-//       type: DataTypes.STRING,
-//       unique: true,
-//       allowNull: false,
-//     },
-//     author: {
-//       type: DataTypes.STRING,
-//       defaultValue: "written by some author",
-//     },
-//     genre: {
-//       type: DataTypes.STRING,
-//       defaultValue: "some genre",
-//     },
-//   },
-//   { timestamps: false }
-// );
+        email:{
+            type: DataTypes.STRING,
+            Unique: true,
+            allowNull: false,
+        },
 
-// module.exports = Book;
+        password:{
+            type: DataTypes.STRING,
+            Unique: true,
+            allowNull: false,
+        }
+    },
+    {timeStamps: false, indexed: [{Unique: true,  fields: ["username"]}]}
+)

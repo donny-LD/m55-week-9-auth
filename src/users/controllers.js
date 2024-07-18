@@ -1,5 +1,5 @@
-const messages = require("dote/src/messages");
 const User = require("./model");
+const jwt = require("jsonwebtoken")
 
 const register = async (req, res) => {
   try {
@@ -13,7 +13,15 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    res.status(201).json({ message: "success", user: req.body });
+
+    const token = await jwt.sign({id: req.user.id}, process.env.SE);
+
+    const user = {
+        id:mreq.user.id,
+        username:req.user.username,
+        token:token,
+    }
+    res.status(201).json({ message: "success", user: req.User });
   } catch (error) {
     res.status(500).json({ message: error.message, error: error });
   }
