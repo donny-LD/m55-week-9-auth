@@ -1,4 +1,4 @@
-const { DataTypes, UniqueConstraintError } = require("sequelize");
+const { DataTypes } = require("sequelize");
 const sequelize = require ("../db/connection");
 
 const User = sequelize.define(
@@ -23,3 +23,5 @@ const User = sequelize.define(
     },
     {timeStamps: false, indexed: [{Unique: true,  fields: ["username"]}]}
 )
+
+module.exports =  User; 
